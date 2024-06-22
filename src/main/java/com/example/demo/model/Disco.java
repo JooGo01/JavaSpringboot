@@ -5,9 +5,10 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "discos")
+@Table(name = "disco")
 public class Disco {
     @Id
     @GeneratedValue
@@ -15,15 +16,22 @@ public class Disco {
     private String nombre;
     @ElementCollection(targetClass = Genero.class)
     @Enumerated(EnumType.STRING)
-    @CollectionTable(name = "disco_genero")
+    @CollectionTable(name = "disco_genero", joinColumns = @JoinColumn(name = "disco_id"))
     @Column(name = "genero")
-    private List<Genero> genero;
+    private Set<Genero> genero;
     private Date fecha_lanzamiento;
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name="cancion_id")
-    private List<Cancion> cancion;
+    @ManyToMany
+    @JoinTable(
+            name = "disco_cancion",
+            joinColumns = @JoinColumn(name = "disco_id"),
+            inverseJoinColumns = @JoinColumn(name = "cancion_id")
+    )
+    private Set<Cancion> cancion;
+    @ManyToOne
+    @JoinColumn(name="artista_id")
+    private Artista artista;
 
-    public Disco(String p_nombre, ArrayList<Genero> p_genero, Date p_fecha_lanzamiento, ArrayList<Cancion> p_cancion){
+    public Disco(String p_nombre, Set<Genero> p_genero, Date p_fecha_lanzamiento, Set<Cancion> p_cancion){
         this.nombre=p_nombre;
         this.genero=p_genero;
         this.fecha_lanzamiento=p_fecha_lanzamiento;
@@ -47,10 +55,10 @@ public class Disco {
     public void setNombre(String p_nombre){
         this.nombre=p_nombre;
     }
-    public List<Genero> getGenero(){
+    public Set<Genero> getGenero(){
         return genero;
     }
-    public void setGenero(ArrayList<Genero> p_genero){
+    public void setGenero(Set<Genero> p_genero){
         this.genero=p_genero;
     }
     public Date getFechaLanzamiento(){
@@ -59,11 +67,11 @@ public class Disco {
     public void setFechaLanzamiento(Date p_fecha_lanzamiento){
         this.fecha_lanzamiento=p_fecha_lanzamiento;
     }
-    public List<Cancion> getCancion(){
+    public Set<Cancion> getCancion(){
         return cancion;
     }
 
-    public void setCancion(ArrayList<Cancion> p_cancion){
+    public void setCancion(Set<Cancion> p_cancion){
         this.cancion=p_cancion;
     }
 }

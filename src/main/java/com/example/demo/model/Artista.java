@@ -1,28 +1,36 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 import java.lang.reflect.Array;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
+@Entity
+@Table(name = "artista")
 public class Artista {
     @Id
     @GeneratedValue
     private Long id;
-    private List<Genero> genero;
+    @ElementCollection(targetClass = Genero.class)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "artista_genero", joinColumns = @JoinColumn(name = "artista_id"))
+    @Column(name = "genero")
+    private Set<Genero> genero;
     private String pais;
     private Date fecha_nacimiento;
     private Date fecha_fallecimiento;
-    private List<String> instrumento;
+    @ManyToMany
+    @JoinTable(
+            name = "artista_instrumento",
+            joinColumns = @JoinColumn(name = "artista_id"),
+            inverseJoinColumns = @JoinColumn(name = "instrumento_id")
+    )
+    private Set<Instrumento> instrumento;
     private String biografia;
-    private List<Disco> disco;
+    @OneToMany(mappedBy = "artista")
+    private Set<Disco> disco;
 
-    public Artista(ArrayList<Genero> p_genero, String p_pais, Date p_fecha_nacimiento, Date p_fecha_fallecimiento, ArrayList<String> p_instrumento, String p_biografia, ArrayList<Disco> p_disco){
+    public Artista(Set<Genero> p_genero, String p_pais, Date p_fecha_nacimiento, Date p_fecha_fallecimiento, Set<Instrumento> p_instrumento, String p_biografia, Set<Disco> p_disco){
         this.genero=p_genero;
         this.pais=p_pais;
         this.fecha_nacimiento=p_fecha_nacimiento;
@@ -42,10 +50,10 @@ public class Artista {
         this.id=p_id;
     }
 
-    public List<Genero> getGenero(){
+    public Set<Genero> getGenero(){
         return genero;
     }
-    public void setGenero(ArrayList<Genero> p_genero){
+    public void setGenero(Set<Genero> p_genero){
         this.genero=p_genero;
     }
 
@@ -69,10 +77,10 @@ public class Artista {
         this.fecha_fallecimiento=p_fecha_fal;
     }
 
-    public List<String> getInstrumento(){
+    public Set<Instrumento> getInstrumento(){
         return instrumento;
     }
-    public void setInstrumento(ArrayList<String> p_instrumento){
+    public void setInstrumento(Set<Instrumento> p_instrumento){
         this.instrumento=p_instrumento;
     }
 
@@ -83,10 +91,10 @@ public class Artista {
         this.biografia=p_biografia;
     }
 
-    public List<Disco> getDisco(){
+    public Set<Disco> getDisco(){
         return disco;
     }
-    public void setDisco(ArrayList<Disco> p_disco){
+    public void setDisco(Set<Disco> p_disco){
         this.disco=p_disco;
     }
 }
