@@ -11,10 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @RestController
 @RequestMapping("/disco")
@@ -76,13 +75,26 @@ public class DiscoController {
     }
 
     @GetMapping("/busqueda/genero/{genero}")
-    public Optional<Artista> findByGenero(@PathVariable String genero){
+    public Set<Disco> findByGenero(@PathVariable String genero){
         Genero gen;
         if (Genero.existe(genero)) {
             gen = Genero.valueOf(genero);
         } else {
             gen = null;
         }
-        return artistaService.findByGenero(gen);
+        return discoService.findByGenero(gen);
+    }
+
+    @PostMapping(value="/busqueda/fecha",  consumes = {"application/json", "application/x-www-form-urlencoded", MediaType.APPLICATION_JSON_VALUE})
+    public Set<Disco> findByFechaLanzamiento(@RequestBody Map<String, Object> requestBody){
+        String fechaString = (String) requestBody.get("fechaLanzamiento");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+        Date fecha = null;
+        try {
+            fecha = formatter.parse(fechaString);
+        } catch (ParseException e) {
+            e.printStackTrace();  // Manejar adecuadamente la excepción
+        }
+        return discoService.findByFechaLanzamiento(fecha);
     }
 }

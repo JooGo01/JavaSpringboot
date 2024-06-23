@@ -35,4 +35,8 @@ public class DiscoService {
     public Set<Disco> findByGenero(Genero genero){
         return discoRepository.findByGenero(genero);
     }
+
+    public Set<Disco> findByFechaLanzamiento(Date fecha){
+        return discoRepository.findByFechaLanzamiento(fecha);
+    }
 }
