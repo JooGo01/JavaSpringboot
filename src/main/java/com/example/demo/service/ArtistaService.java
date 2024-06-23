@@ -60,10 +60,10 @@ public class ArtistaService {
         return artistaRepository.findByCancion(cancion);
     }
 
-    public Optional<Artista> findByFechaFallecimientoIsNull(){
+    public Set<Artista> findByFechaFallecimientoIsNull(){
         return artistaRepository.findByFechaFallecimientoIsNull();
     }
-    public Optional<Artista> findByFechaFallecimientoIsNotNull(){
+    public Set<Artista> findByFechaFallecimientoIsNotNull(){
         return artistaRepository.findByFechaFallecimientoIsNotNull();
     }
     public Optional<Artista> findByNombre(String nombre){

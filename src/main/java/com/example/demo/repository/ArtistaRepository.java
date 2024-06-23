@@ -29,7 +29,7 @@ public interface ArtistaRepository extends JpaRepository<Artista,Long>{
     Set<Artista> findByCancion(Set<Cancion> cancion);*/
     @Query("select a from Artista a join a.disco d join d.cancion c  GROUP BY a HAVING COUNT(c) = :cancion")
     Set<Artista> findByCancion(Long cancion);
-    Optional<Artista> findByFechaFallecimientoIsNull();
-    Optional<Artista> findByFechaFallecimientoIsNotNull();
+    Set<Artista> findByFechaFallecimientoIsNull();
+    Set<Artista> findByFechaFallecimientoIsNotNull();
     Optional<Artista> findByNombre(String nombre);
 }

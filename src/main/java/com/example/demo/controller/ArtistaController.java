@@ -118,4 +118,13 @@ public class ArtistaController {
     public Set<Artista> findByCancion(@PathVariable Long cancion){
         return artistaService.findByCancion(cancion);
     }
+
+    @PostMapping("/busqueda/vivo")
+    public Set<Artista> findByFechaFallecimientoIsNull(){
+        return artistaService.findByFechaFallecimientoIsNull();
+    }
+    @PostMapping("/busqueda/fallecido")
+    public Set<Artista> findByFechaFallecimientoIsNotNull(){
+        return artistaService.findByFechaFallecimientoIsNotNull();
+    }
 }
