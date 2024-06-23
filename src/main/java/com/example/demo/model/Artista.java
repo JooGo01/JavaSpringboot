@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.lang.reflect.Array;
@@ -9,7 +10,7 @@ import java.util.*;
 @Table(name = "artista")
 public class Artista {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @ElementCollection(targetClass = Genero.class)
     @Enumerated(EnumType.STRING)
@@ -17,14 +18,17 @@ public class Artista {
     @Column(name = "genero_id")
     private Set<Genero> genero;
     private String pais;
-    private Date fecha_nacimiento;
-    private Date fecha_fallecimiento;
+    @Column(name = "fecha_nacimiento")
+    private Date fechaNacimiento;
+    @Column(name = "fecha_fallecimiento")
+    private Date fechaFallecimiento;
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "artista_instrumento",
             joinColumns = {@JoinColumn(name = "artista_id")},
             inverseJoinColumns = {@JoinColumn(name = "instrumento_id")}
     )
+    @JsonManagedReference
     private Set<Instrumento> instrumento = new HashSet<>();
     private String biografia;
     @OneToMany(mappedBy = "artista")
@@ -32,8 +36,8 @@ public class Artista {
 
     public Artista(String p_pais, Date p_fecha_nacimiento, Date p_fecha_fallecimiento, String p_biografia, Set<Genero> p_genero){
         this.pais=p_pais;
-        this.fecha_nacimiento=p_fecha_nacimiento;
-        this.fecha_fallecimiento=p_fecha_fallecimiento;
+        this.fechaNacimiento=p_fecha_nacimiento;
+        this.fechaFallecimiento=p_fecha_fallecimiento;
         this.biografia=p_biografia;
         this.genero=p_genero;
     }
@@ -62,17 +66,17 @@ public class Artista {
         this.pais=p_pais;
     }
     public Date getFechaNacimiento(){
-        return fecha_nacimiento;
+        return fechaNacimiento;
     }
     public void setPais(Date p_fecha_nac){
-        this.fecha_nacimiento=p_fecha_nac;
+        this.fechaNacimiento=p_fecha_nac;
     }
 
     public Date getFechaFallecimiento(){
-        return fecha_fallecimiento;
+        return fechaFallecimiento;
     }
     public void setFechaFallecimiento(Date p_fecha_fal){
-        this.fecha_fallecimiento=p_fecha_fal;
+        this.fechaFallecimiento=p_fecha_fal;
     }
 
     public Set<Instrumento> getInstrumento(){

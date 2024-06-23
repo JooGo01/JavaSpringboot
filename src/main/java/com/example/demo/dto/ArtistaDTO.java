@@ -2,8 +2,10 @@ package com.example.demo.dto;
 
 import com.example.demo.model.Disco;
 import com.example.demo.model.Genero;
+import com.example.demo.model.Instrumento;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 public class ArtistaDTO {
@@ -11,21 +13,21 @@ public class ArtistaDTO {
     private Date fechaNacimiento;
     private Date fechaFallecimiento;
     private String biografia;
-    private Set<Integer> instrumentoId;
-    private Set<Genero> genero;
-    private Set<Disco> disco;
+    private Set<Instrumento> instrumento = new HashSet<>();
+    private Set<Genero> genero= new HashSet<>();
+    private Set<Disco> disco= new HashSet<>();
 
     // Constructor sin argumentos
     public ArtistaDTO() {
     }
 
     // Constructor con argumentos
-    public ArtistaDTO(String nombre, String pais, Date fechaNacimiento, Date fechaFallecimiento, String biografia, Set<Integer> instrumentoId, Set<Genero> genero) {
+    public ArtistaDTO(String pais, Date fechaNacimiento, Date fechaFallecimiento, String biografia, Set<Instrumento> instrumento, Set<Genero> genero) {
         this.pais = pais;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaFallecimiento = fechaFallecimiento;
         this.biografia = biografia;
-        this.instrumentoId = instrumentoId;
+        this.instrumento = instrumento;
         this.genero = genero;
     }
 
@@ -62,12 +64,12 @@ public class ArtistaDTO {
         this.biografia = biografia;
     }
 
-    public Set<Integer> getInstrumentoId() {
-        return instrumentoId;
+    public Set<Instrumento> getInstrumento() {
+        return instrumento;
     }
 
-    public void setInstrumentoId(Set<Integer> instrumentoId) {
-        this.instrumentoId = instrumentoId;
+    public void setInstrumento(Set<Instrumento> instrumento) {
+        this.instrumento = instrumento;
     }
 
     public Set<Genero> getGenero() {

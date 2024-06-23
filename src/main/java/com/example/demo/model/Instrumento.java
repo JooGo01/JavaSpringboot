@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
@@ -10,12 +12,14 @@ import java.util.Set;
 @Table(name = "instrumento")
 public class Instrumento {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     private String nombre;
 
     @ManyToMany(mappedBy = "instrumento")
+    @JsonBackReference
+    @JsonIgnore
     private Set<Artista> artista = new HashSet<>();
 
     public Instrumento(String p_nombre) {
@@ -40,11 +44,11 @@ public class Instrumento {
         this.nombre = p_nombre;
     }
 
-    public Set<Artista> getArtistas() {
+    public Set<Artista> getArtista() {
         return artista;
     }
 
-    public void setArtistas(Set<Artista> p_artista) {
+    public void setArtista(Set<Artista> p_artista) {
         this.artista = p_artista;
     }
 }

@@ -7,9 +7,7 @@ import com.example.demo.repository.ArtistaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 public class ArtistaService {
@@ -39,9 +37,29 @@ public class ArtistaService {
     }
 
     public Optional<Artista> findByID(Long id){
-        return artistaRepository.findByID(id);
+        return artistaRepository.findById(id);
     }
     public Optional<Artista> findByGenero(String genero){
         return artistaRepository.findByGenero(genero);
+    }
+
+    public Optional<Artista> findByPais(String pais){
+        return artistaRepository.findByPais(pais);
+    }
+    public Optional<Artista> findByInstrumento(Set<String> instrumento){
+        return artistaRepository.findArtistasByInstrumento(instrumento);
+    }
+    public Optional<Artista> findByEdad(Integer edad){
+        return artistaRepository.findByEdad(edad);
+    }
+    public Optional<Artista> findByCancion(Set<Cancion> cancion){
+        return artistaRepository.findByCancion(cancion);
+    }
+
+    public Optional<Artista> findByFechaFallecimientoIsNull(){
+        return artistaRepository.findByFechaFallecimientoIsNull();
+    }
+    public Optional<Artista> findByFechaFallecimientoIsNotNull(){
+        return artistaRepository.findByFechaFallecimientoIsNull();
     }
 }
