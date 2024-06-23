@@ -46,8 +46,10 @@ public class ArtistaService {
     public Optional<Artista> findByPais(String pais){
         return artistaRepository.findByPaisContainingIgnoreCase(pais);
     }
-    public Optional<Artista> findByInstrumento(Set<String> instrumento){
-        return artistaRepository.findArtistasByInstrumento(instrumento);
+    public Set<Artista> findArtistasByInstrumento(Set<String> instrumento){
+        Set<Artista> artistas = new HashSet<>();
+        artistas = artistaRepository.findArtistasByInstrumento(instrumento);
+        return artistas;
     }
     public Optional<Artista> findByEdad(Integer edad){
         return artistaRepository.findByEdad(edad);
@@ -60,6 +62,9 @@ public class ArtistaService {
         return artistaRepository.findByFechaFallecimientoIsNull();
     }
     public Optional<Artista> findByFechaFallecimientoIsNotNull(){
-        return artistaRepository.findByFechaFallecimientoIsNull();
+        return artistaRepository.findByFechaFallecimientoIsNotNull();
+    }
+    public Optional<Artista> findByNombre(String nombre){
+        return artistaRepository.findByNombre(nombre);
     }
 }

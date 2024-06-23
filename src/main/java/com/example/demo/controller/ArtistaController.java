@@ -9,10 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashSet;
-import java.util.List;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping("/artista")
@@ -84,5 +81,32 @@ public class ArtistaController {
     @GetMapping("/busqueda/pais/{pais}")
     public Optional<Artista> findByPais(@PathVariable String pais){
         return artistaService.findByPais(pais);
+    }
+
+    //@GetMapping("/busqueda/instrumento/{instrumento}")
+    @PostMapping(value="/busqueda/instrumento",  consumes = {"application/json", "application/x-www-form-urlencoded", MediaType.APPLICATION_JSON_VALUE})
+    public Set<Artista> findByInstrumento(@RequestBody Map<String, Object> requestBody){
+        /*Set<Instrumento> instrumentos = new HashSet<>();
+        for (String inst : instrumento) {
+            Optional<Instrumento> existingInstrumento = instrumentoService.findByNombre(inst);
+            if(existingInstrumento.isPresent()){
+                instrumentos.add(existingInstrumento.get());
+            }else{
+                InstrumentoDTO instrumentoDTO = new InstrumentoDTO(inst);
+                Instrumento instrumentoNuevo = new Instrumento(instrumentoDTO.getNombre());
+                instrumentos.add(instrumentoNuevo);
+                instrumentoService.createInstrumento(instrumentoNuevo);
+            }
+        }*/
+        Object instrumentoObj = requestBody.get("instrumento");
+        Set<String> instrumentos = new HashSet<>();
+        if(instrumentoObj instanceof List){
+            List<String> instrumentos_list = (List<String>) instrumentoObj;
+            instrumentos = new HashSet<>(instrumentos_list);
+        }else if (instrumentoObj instanceof String){
+            String str_instrumento = (String) instrumentoObj;
+            instrumentos.add(str_instrumento);
+        }
+        return artistaService.findArtistasByInstrumento(instrumentos);
     }
 }

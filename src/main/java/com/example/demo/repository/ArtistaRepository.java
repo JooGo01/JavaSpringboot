@@ -17,8 +17,8 @@ public interface ArtistaRepository extends JpaRepository<Artista,Long>{
     @Query("select a from Artista a JOIN a.genero g where g = :genero")
     Optional<Artista> findByGenero(@Param("genero") Genero genero);
     Optional<Artista> findByPaisContainingIgnoreCase(String pais);
-    @Query("select a from Artista a JOIN a.instrumento i where i.nombre IN :instrumento")
-    Optional<Artista> findArtistasByInstrumento(Set<String> instrumento);
+    @Query("select a from Artista a JOIN a.instrumento i where LOWER(i.nombre) IN :instrumento")
+    Set<Artista> findArtistasByInstrumento(Set<String> instrumento);
     @Query("select a from Artista a WHERE " +
             "(YEAR(CURRENT_DATE) - YEAR(a.fechaNacimiento) - " +
             "(CASE WHEN MONTH(CURRENT_DATE) < MONTH(a.fechaNacimiento) OR " +
@@ -29,4 +29,5 @@ public interface ArtistaRepository extends JpaRepository<Artista,Long>{
     Optional<Artista> findByCancion(Set<Cancion> cancion);
     Optional<Artista> findByFechaFallecimientoIsNull();
     Optional<Artista> findByFechaFallecimientoIsNotNull();
+    Optional<Artista> findByNombre(String nombre);
 }
