@@ -1,21 +1,32 @@
 package com.example.demo.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-@Table(name = "canciones")
+@Table(name = "cancion")
 public class Cancion {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre, letra;
 
-    private String genero;
+    @ElementCollection(targetClass = Genero.class, fetch = FetchType.EAGER)
+    @Enumerated(EnumType.STRING)
+    @CollectionTable(name = "cancion_genero", joinColumns = @JoinColumn(name = "cancion_id"))
+    @Column(name = "genero_id")
+    private Set<Genero> genero = new HashSet<>();
 
-    public Cancion(String p_nombre, String p_letra, String p_genero){
+    /*
+    @ManyToMany(mappedBy = "cancion")
+    private Set<Disco> disco = new HashSet<>();
+    */
+
+    public Cancion(String p_nombre, String p_letra, Set<Genero> p_genero){
         this.nombre = p_nombre;
         this.letra = p_letra;
         this.genero=p_genero;
@@ -49,11 +60,21 @@ public class Cancion {
         this.letra = letra;
     }
 
-    public String getGenero(){
+    public Set<Genero> getGenero(){
         return genero;
     }
 
-    public void setGenero(String genero){
+    public void setGenero(Set<Genero> genero){
         this.genero=genero;
     }
+
+    /*
+    public Set<Disco> getDisco(){
+        return disco;
+    }
+
+    public void setDisco(Set<Disco> disco){
+        this.disco=disco;
+    }
+    */
 }

@@ -1,12 +1,15 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Cancion;
+import com.example.demo.model.Disco;
+import com.example.demo.model.Genero;
 import com.example.demo.model.User;
 import com.example.demo.repository.CancionRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -24,7 +27,20 @@ public class CancionService {
         return null;
     }
     public List<Cancion> findAll(){
-        return cancionRepository.findAll();
+        List<Cancion> cancion = new ArrayList<>();
+        cancion=cancionRepository.findAll();
+        for(Cancion can: cancion){
+            System.out.println("Id: " + can.getId());
+            System.out.println("Nombre: " + can.getNombre());
+            System.out.println("Genero: " + can.getGenero());
+            for(Genero genero : can.getGenero()) {
+                System.out.println("Genero: " + genero.toString());
+            }
+            /*for(Disco disco : can.getDisco()) {
+                System.out.println("Disco: " + disco.getNombre());
+            }*/
+        }
+        return cancion;
     }
 
     public Optional<Cancion> findByNombre(String nombre){
