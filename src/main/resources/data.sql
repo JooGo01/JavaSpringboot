@@ -124,8 +124,8 @@ VALUES ('Jazz'),
 /*Jazz, Blues, Rock, Electrónica, Clásica, Tango;*/
 -- Tabla cancion
 INSERT INTO cancion (nombre, letra)
-VALUES ('Canción 1', 'Letra de la canción 1'),
-       ('Canción 2', 'Letra de la canción 2');
+VALUES ('Cancion 1', 'Letra de la cancion 1'),
+       ('Cancion 2', 'Letra de la cancion 2');
 
 -- Tabla disco_cancion
 INSERT INTO disco_cancion (disco_id, cancion_id)

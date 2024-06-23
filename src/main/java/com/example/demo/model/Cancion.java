@@ -21,8 +21,10 @@ public class Cancion {
     @Column(name = "genero_id")
     private Set<Genero> genero = new HashSet<>();
 
+    /*
     @ManyToMany(mappedBy = "cancion")
     private Set<Disco> disco = new HashSet<>();
+    */
 
     public Cancion(String p_nombre, String p_letra, Set<Genero> p_genero){
         this.nombre = p_nombre;
@@ -65,4 +67,14 @@ public class Cancion {
     public void setGenero(Set<Genero> genero){
         this.genero=genero;
     }
+
+    /*
+    public Set<Disco> getDisco(){
+        return disco;
+    }
+
+    public void setDisco(Set<Disco> disco){
+        this.disco=disco;
+    }
+    */
 }

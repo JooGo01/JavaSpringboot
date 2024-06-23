@@ -1,27 +1,27 @@
 package com.example.demo.dto;
 
+import com.example.demo.model.Disco;
 import com.example.demo.model.Genero;
 
 import java.util.Date;
 import java.util.Set;
 
 public class ArtistaDTO {
-    private String nombre;
-    private String nacionalidad;
+    private String pais;
     private Date fechaNacimiento;
     private Date fechaFallecimiento;
     private String biografia;
     private Set<Integer> instrumentoId;
     private Set<Genero> genero;
+    private Set<Disco> disco;
 
     // Constructor sin argumentos
     public ArtistaDTO() {
     }
 
     // Constructor con argumentos
-    public ArtistaDTO(String nombre, String nacionalidad, Date fechaNacimiento, Date fechaFallecimiento, String biografia, Set<Integer> instrumentoId, Set<Genero> genero) {
-        this.nombre = nombre;
-        this.nacionalidad = nacionalidad;
+    public ArtistaDTO(String nombre, String pais, Date fechaNacimiento, Date fechaFallecimiento, String biografia, Set<Integer> instrumentoId, Set<Genero> genero) {
+        this.pais = pais;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaFallecimiento = fechaFallecimiento;
         this.biografia = biografia;
@@ -30,20 +30,12 @@ public class ArtistaDTO {
     }
 
     // Getters y Setters
-    public String getNombre() {
-        return nombre;
+    public String getPais() {
+        return pais;
     }
 
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
-    }
-
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
-
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
+    public void setPais(String pais) {
+        this.pais = pais;
     }
 
     public Date getFechaNacimiento() {

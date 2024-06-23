@@ -1,6 +1,7 @@
 package com.example.demo.service;
 
 import com.example.demo.model.Cancion;
+import com.example.demo.model.Disco;
 import com.example.demo.model.Genero;
 import com.example.demo.model.User;
 import com.example.demo.repository.CancionRepository;
@@ -35,6 +36,9 @@ public class CancionService {
             for(Genero genero : can.getGenero()) {
                 System.out.println("Genero: " + genero.toString());
             }
+            /*for(Disco disco : can.getDisco()) {
+                System.out.println("Disco: " + disco.getNombre());
+            }*/
         }
         return cancion;
     }

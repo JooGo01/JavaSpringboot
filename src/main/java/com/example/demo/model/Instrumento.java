@@ -15,8 +15,8 @@ public class Instrumento {
 
     private String nombre;
 
-    @OneToMany(mappedBy = "instrumento")
-    private Set<Artista> artista;
+    @ManyToMany(mappedBy = "instrumento")
+    private Set<Artista> artista = new HashSet<>();
 
     public Instrumento(String p_nombre) {
         this.nombre = p_nombre;

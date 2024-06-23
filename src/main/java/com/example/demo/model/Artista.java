@@ -14,30 +14,28 @@ public class Artista {
     @ElementCollection(targetClass = Genero.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "artista_genero", joinColumns = @JoinColumn(name = "artista_id"))
-    @Column(name = "genero")
+    @Column(name = "genero_id")
     private Set<Genero> genero;
     private String pais;
     private Date fecha_nacimiento;
     private Date fecha_fallecimiento;
-    @ManyToMany
+    @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
             name = "artista_instrumento",
-            joinColumns = @JoinColumn(name = "artista_id"),
-            inverseJoinColumns = @JoinColumn(name = "instrumento_id")
+            joinColumns = {@JoinColumn(name = "artista_id")},
+            inverseJoinColumns = {@JoinColumn(name = "instrumento_id")}
     )
-    private Set<Instrumento> instrumento;
+    private Set<Instrumento> instrumento = new HashSet<>();
     private String biografia;
     @OneToMany(mappedBy = "artista")
     private Set<Disco> disco;
 
-    public Artista(Set<Genero> p_genero, String p_pais, Date p_fecha_nacimiento, Date p_fecha_fallecimiento, Set<Instrumento> p_instrumento, String p_biografia, Set<Disco> p_disco){
-        this.genero=p_genero;
+    public Artista(String p_pais, Date p_fecha_nacimiento, Date p_fecha_fallecimiento, String p_biografia, Set<Genero> p_genero){
         this.pais=p_pais;
         this.fecha_nacimiento=p_fecha_nacimiento;
         this.fecha_fallecimiento=p_fecha_fallecimiento;
-        this.instrumento=p_instrumento;
         this.biografia=p_biografia;
-        this.disco=p_disco;
+        this.genero=p_genero;
     }
 
     public Artista(){

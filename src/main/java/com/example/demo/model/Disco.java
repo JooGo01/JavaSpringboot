@@ -17,7 +17,7 @@ public class Disco {
     @ElementCollection(targetClass = Genero.class)
     @Enumerated(EnumType.STRING)
     @CollectionTable(name = "disco_genero", joinColumns = @JoinColumn(name = "disco_id"))
-    @Column(name = "genero")
+    @Column(name = "genero_id")
     private Set<Genero> genero;
     private Date fecha_lanzamiento;
     @ManyToMany
