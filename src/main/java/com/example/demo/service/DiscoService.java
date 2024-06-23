@@ -1,6 +1,8 @@
 package com.example.demo.service;
 
+import com.example.demo.model.Artista;
 import com.example.demo.model.Disco;
+import com.example.demo.model.Genero;
 import com.example.demo.repository.DiscoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -28,5 +30,9 @@ public class DiscoService {
         Set<Disco> disco = new HashSet<>();
         disco = discoRepository.findByNombreContainingIgnoreCase(nombre);
         return disco;
+    }
+
+    public Set<Disco> findByGenero(Genero genero){
+        return discoRepository.findByGenero(genero);
     }
 }

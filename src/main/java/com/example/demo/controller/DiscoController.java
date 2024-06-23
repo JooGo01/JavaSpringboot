@@ -74,4 +74,15 @@ public class DiscoController {
     public Set<Disco> findByNombre(@PathVariable String nombre){
         return discoService.findByNombreContainingIgnoreCase(nombre);
     }
+
+    @GetMapping("/busqueda/genero/{genero}")
+    public Optional<Artista> findByGenero(@PathVariable String genero){
+        Genero gen;
+        if (Genero.existe(genero)) {
+            gen = Genero.valueOf(genero);
+        } else {
+            gen = null;
+        }
+        return artistaService.findByGenero(gen);
+    }
 }
