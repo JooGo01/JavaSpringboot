@@ -24,9 +24,11 @@ public interface ArtistaRepository extends JpaRepository<Artista,Long>{
             "(CASE WHEN MONTH(CURRENT_DATE) < MONTH(a.fechaNacimiento) OR " +
             "(MONTH(CURRENT_DATE) = MONTH(a.fechaNacimiento) AND DAY(CURRENT_DATE) < DAY(a.fechaNacimiento)) " +
             "THEN 1 ELSE 0 END)) = :edad")
-    Optional<Artista> findByEdad(@Param("edad") Integer edad);
-    @Query("select a from Artista a join a.disco d join d.cancion c where c IN :cancion")
-    Optional<Artista> findByCancion(Set<Cancion> cancion);
+    Set<Artista> findByEdad(@Param("edad") Integer edad);
+    /*@Query("select a from Artista a join a.disco d join d.cancion c where c IN :cancion")
+    Set<Artista> findByCancion(Set<Cancion> cancion);*/
+    @Query("select a from Artista a join a.disco d join d.cancion c  GROUP BY a HAVING COUNT(c) = :cancion")
+    Set<Artista> findByCancion(Long cancion);
     Optional<Artista> findByFechaFallecimientoIsNull();
     Optional<Artista> findByFechaFallecimientoIsNotNull();
     Optional<Artista> findByNombre(String nombre);

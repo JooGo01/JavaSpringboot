@@ -109,4 +109,13 @@ public class ArtistaController {
         }
         return artistaService.findArtistasByInstrumento(instrumentos);
     }
+
+    @GetMapping("/busqueda/edad/{edad}")
+    public Set<Artista> findByEdad(@PathVariable Integer edad){
+        return artistaService.findByEdad(edad);
+    }
+    @GetMapping("/busqueda/cancion/{cancion}")
+    public Set<Artista> findByCancion(@PathVariable Long cancion){
+        return artistaService.findByCancion(cancion);
+    }
 }

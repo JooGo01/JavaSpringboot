@@ -51,10 +51,12 @@ public class ArtistaService {
         artistas = artistaRepository.findArtistasByInstrumento(instrumento);
         return artistas;
     }
-    public Optional<Artista> findByEdad(Integer edad){
-        return artistaRepository.findByEdad(edad);
+    public Set<Artista> findByEdad(Integer edad){
+        Set<Artista> artistas = new HashSet<>();
+        artistas = artistaRepository.findByEdad(edad);
+        return artistas;
     }
-    public Optional<Artista> findByCancion(Set<Cancion> cancion){
+    public Set<Artista> findByCancion(Long cancion){
         return artistaRepository.findByCancion(cancion);
     }
 
