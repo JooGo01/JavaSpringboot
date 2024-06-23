@@ -58,7 +58,7 @@ public class ArtistaController {
             disco.add(disc);
         }
 
-        Artista artista = new Artista(artistaDTO.getPais(), artistaDTO.getFechaNacimiento(), artistaDTO.getFechaFallecimiento(), artistaDTO.getBiografia(), genero);
+        Artista artista = new Artista(artistaDTO.getNombre(), artistaDTO.getPais(), artistaDTO.getFechaNacimiento(), artistaDTO.getFechaFallecimiento(), artistaDTO.getBiografia(), genero);
         artista.setInstrumento(instrumento);
         artista.setDisco(disco);
         Optional<Artista> artistaCreado= artistaService.createArtista(artista);
@@ -79,5 +79,10 @@ public class ArtistaController {
             gen = null;
         }
         return artistaService.findByGenero(gen);
+    }
+
+    @GetMapping("/busqueda/pais/{pais}")
+    public Optional<Artista> findByPais(@PathVariable String pais){
+        return artistaService.findByPais(pais);
     }
 }

@@ -17,12 +17,15 @@ public class ArtistaDTO {
     private Set<Genero> genero= new HashSet<>();
     private Set<Disco> disco= new HashSet<>();
 
+    private String nombre;
+
     // Constructor sin argumentos
     public ArtistaDTO() {
     }
 
     // Constructor con argumentos
-    public ArtistaDTO(String pais, Date fechaNacimiento, Date fechaFallecimiento, String biografia, Set<Instrumento> instrumento, Set<Genero> genero) {
+    public ArtistaDTO(String nombre, String pais, Date fechaNacimiento, Date fechaFallecimiento, String biografia, Set<Instrumento> instrumento, Set<Genero> genero) {
+        this.nombre=nombre;
         this.pais = pais;
         this.fechaNacimiento = fechaNacimiento;
         this.fechaFallecimiento = fechaFallecimiento;
@@ -32,6 +35,13 @@ public class ArtistaDTO {
     }
 
     // Getters y Setters
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
     public String getPais() {
         return pais;
     }

@@ -44,7 +44,7 @@ public class ArtistaService {
     }
 
     public Optional<Artista> findByPais(String pais){
-        return artistaRepository.findByPais(pais);
+        return artistaRepository.findByPaisContainingIgnoreCase(pais);
     }
     public Optional<Artista> findByInstrumento(Set<String> instrumento){
         return artistaRepository.findArtistasByInstrumento(instrumento);

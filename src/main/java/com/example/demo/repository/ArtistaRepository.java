@@ -16,7 +16,7 @@ public interface ArtistaRepository extends JpaRepository<Artista,Long>{
     Optional<Artista> findById(Long id);
     @Query("select a from Artista a JOIN a.genero g where g = :genero")
     Optional<Artista> findByGenero(@Param("genero") Genero genero);
-    Optional<Artista> findByPais(String pais);
+    Optional<Artista> findByPaisContainingIgnoreCase(String pais);
     @Query("select a from Artista a JOIN a.instrumento i where i.nombre IN :instrumento")
     Optional<Artista> findArtistasByInstrumento(Set<String> instrumento);
     @Query("select a from Artista a WHERE " +

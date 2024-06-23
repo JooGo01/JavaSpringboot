@@ -17,7 +17,10 @@ public class Artista {
     @CollectionTable(name = "artista_genero", joinColumns = @JoinColumn(name = "artista_id"))
     @Column(name = "genero_id")
     private Set<Genero> genero;
+
+    private String nombre;
     private String pais;
+
     @Column(name = "fecha_nacimiento")
     private Date fechaNacimiento;
     @Column(name = "fecha_fallecimiento")
@@ -34,7 +37,8 @@ public class Artista {
     @OneToMany(mappedBy = "artista")
     private Set<Disco> disco;
 
-    public Artista(String p_pais, Date p_fecha_nacimiento, Date p_fecha_fallecimiento, String p_biografia, Set<Genero> p_genero){
+    public Artista(String p_nombre, String p_pais, Date p_fecha_nacimiento, Date p_fecha_fallecimiento, String p_biografia, Set<Genero> p_genero){
+        this.nombre=p_nombre;
         this.pais=p_pais;
         this.fechaNacimiento=p_fecha_nacimiento;
         this.fechaFallecimiento=p_fecha_fallecimiento;
@@ -50,6 +54,13 @@ public class Artista {
     }
     public void setId(Long p_id){
         this.id=p_id;
+    }
+
+    public String getNombre(){
+        return nombre;
+    }
+    public void setNombre(String p_nombre){
+        this.nombre=p_nombre;
     }
 
     public Set<Genero> getGenero(){

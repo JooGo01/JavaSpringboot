@@ -22,7 +22,7 @@ INSERT INTO canciones (nombre, letra, genero) VALUES ('Nombre2', 'Letra2', 'Blue
 CREATE TABLE IF NOT EXISTS artista (
     id INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(255),
-    nacionalidad VARCHAR(255),
+    pais VARCHAR(255),
     fecha_nacimiento TIMESTAMP,
     fecha_fallecimiento TIMESTAMP,
     biografia VARCHAR(255)
@@ -94,9 +94,9 @@ CREATE TABLE IF NOT EXISTS artista_genero (
 
 -- inserts tablas
 -- Tabla artista
-INSERT INTO artista (nombre, nacionalidad, fecha_nacimiento, fecha_fallecimiento, biografia)
-VALUES ('John Doe', 'Escoces', '1980-01-01 00:00:00', NULL, 'Biografía de John Doe'),
-       ('Jane Smith', 'Alemana', '1975-05-15 00:00:00', '2020-05-15 00:00:00', 'Biografía de Jane Smith');
+INSERT INTO artista (nombre, pais, fecha_nacimiento, fecha_fallecimiento, biografia)
+VALUES ('John Doe', 'Escocia', '1980-01-01 00:00:00', NULL, 'Biografía de John Doe'),
+       ('Jane Smith', 'Alemania', '1975-05-15 00:00:00', '2020-05-15 00:00:00', 'Biografía de Jane Smith');
 
 -- Tabla instrumento
 INSERT INTO instrumento (nombre)
