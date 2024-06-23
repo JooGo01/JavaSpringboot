@@ -79,4 +79,12 @@ public class ArtistaDTO {
     public void setGenero(Set<Genero> genero) {
         this.genero = genero;
     }
+
+    public Set<Disco> getDisco() {
+        return disco;
+    }
+
+    public void setDisco(Set<Disco> disco) {
+        this.disco = disco;
+    }
 }

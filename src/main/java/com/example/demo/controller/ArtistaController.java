@@ -2,10 +2,7 @@ package com.example.demo.controller;
 
 import com.example.demo.dto.ArtistaDTO;
 import com.example.demo.dto.InstrumentoDTO;
-import com.example.demo.model.Artista;
-import com.example.demo.model.Cancion;
-import com.example.demo.model.Genero;
-import com.example.demo.model.Instrumento;
+import com.example.demo.model.*;
 import com.example.demo.service.ArtistaService;
 import com.example.demo.service.InstrumentoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -47,9 +44,23 @@ public class ArtistaController {
                 instrumentoService.createInstrumento(instrumentoNuevo);
             }
         }
+        Set<Disco> disco = new HashSet<>();
+        for(Disco disc : artistaDTO.getDisco()){
+            //Optional<Disco> existingDisco = discoService.findByNombre(disc.getNombre());
+            /*if(existingDisco.isPresent()){
+                disco.add(existingDisco.get());
+            }else{
+                DiscoDTO discoDTO = new DiscoDTO(disc.getNombre(), disc.getFechaLanzamiento(), disc.getGenero());
+                Disco discoNuevo = new Disco(discoDTO.getNombre(), discoDTO.getFechaLanzamiento(), discoDTO.getGenero());
+                disco.add(discoNuevo);
+                discoService.createDisco(discoNuevo);
+            }*/
+            disco.add(disc);
+        }
 
         Artista artista = new Artista(artistaDTO.getPais(), artistaDTO.getFechaNacimiento(), artistaDTO.getFechaFallecimiento(), artistaDTO.getBiografia(), genero);
         artista.setInstrumento(instrumento);
+        artista.setDisco(disco);
         Optional<Artista> artistaCreado= artistaService.createArtista(artista);
         return artistaCreado;
     }
@@ -57,5 +68,16 @@ public class ArtistaController {
     @GetMapping("/")
     public List<Artista> findAll(){
         return artistaService.findAll();
+    }
+
+    @GetMapping("/busqueda/genero/{genero}")
+    public Optional<Artista> findByGenero(@PathVariable String genero){
+        Genero gen;
+        if (Genero.existe(genero)) {
+            gen = Genero.valueOf(genero);
+        } else {
+            gen = null;
+        }
+        return artistaService.findByGenero(gen);
     }
 }

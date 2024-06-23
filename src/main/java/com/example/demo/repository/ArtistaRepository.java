@@ -2,6 +2,7 @@ package com.example.demo.repository;
 
 import com.example.demo.model.Artista;
 import com.example.demo.model.Cancion;
+import com.example.demo.model.Genero;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -14,7 +15,7 @@ import java.util.Set;
 public interface ArtistaRepository extends JpaRepository<Artista,Long>{
     Optional<Artista> findById(Long id);
     @Query("select a from Artista a JOIN a.genero g where g = :genero")
-    Optional<Artista> findByGenero(@Param("genero") String genero);
+    Optional<Artista> findByGenero(@Param("genero") Genero genero);
     Optional<Artista> findByPais(String pais);
     @Query("select a from Artista a JOIN a.instrumento i where i.nombre IN :instrumento")
     Optional<Artista> findArtistasByInstrumento(Set<String> instrumento);

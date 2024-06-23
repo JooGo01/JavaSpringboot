@@ -39,7 +39,7 @@ public class ArtistaService {
     public Optional<Artista> findByID(Long id){
         return artistaRepository.findById(id);
     }
-    public Optional<Artista> findByGenero(String genero){
+    public Optional<Artista> findByGenero(Genero genero){
         return artistaRepository.findByGenero(genero);
     }
 
