@@ -1,22 +1,26 @@
 package com.example.demo.dto;
 
+import com.example.demo.model.Artista;
+import com.example.demo.model.Cancion;
 import com.example.demo.model.Genero;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Set;
 
 public class DiscoDTO {
     private String nombre;
-    private Date fecha_lanzamiento;
-    private Integer artista_id;
-    private Set<Genero> genero;
+    private Date fechaLanzamiento;
+    private Long artista;
+    private Set<Genero> genero = new HashSet<>();
+
+    private Set<Long> cancion = new HashSet<>();
 
     public DiscoDTO() {
     }
-    public DiscoDTO(String nombre, Date fecha_lanzamiento, Integer artista_id, Set<Genero> genero) {
+    public DiscoDTO(String nombre, Date fecha_lanzamiento, Set<Genero> genero) {
         this.nombre = nombre;
-        this.fecha_lanzamiento = fecha_lanzamiento;
-        this.artista_id = artista_id;
+        this.fechaLanzamiento = fecha_lanzamiento;
         this.genero = genero;
     }
 
@@ -30,19 +34,19 @@ public class DiscoDTO {
     }
 
     public Date getFechaLanzamiento() {
-        return fecha_lanzamiento;
+        return fechaLanzamiento;
     }
 
     public void setFechaLanzamiento(Date fechaLanzamiento) {
-        this.fecha_lanzamiento = fechaLanzamiento;
+        this.fechaLanzamiento = fechaLanzamiento;
     }
 
-    public Integer getArtistaId() {
-        return artista_id;
+    public Long getArtista() {
+        return artista;
     }
 
-    public void setArtistaId(Integer artista_id) {
-        this.artista_id = artista_id;
+    public void setArtista(Long artista) {
+        this.artista = artista;
     }
 
     public Set<Genero> getGenero() {
@@ -51,5 +55,13 @@ public class DiscoDTO {
 
     public void setGenero(Set<Genero> genero) {
         this.genero = genero;
+    }
+
+    public Set<Long> getCancion() {
+        return cancion;
+    }
+
+    public void setCancion(Set<Long> cancion) {
+        this.cancion = cancion;
     }
 }

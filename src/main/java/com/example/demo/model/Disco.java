@@ -1,5 +1,6 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
 import java.util.ArrayList;
@@ -11,7 +12,7 @@ import java.util.Set;
 @Table(name = "disco")
 public class Disco {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     private String nombre;
     @ElementCollection(targetClass = Genero.class)
@@ -19,7 +20,8 @@ public class Disco {
     @CollectionTable(name = "disco_genero", joinColumns = @JoinColumn(name = "disco_id"))
     @Column(name = "genero_id")
     private Set<Genero> genero;
-    private Date fecha_lanzamiento;
+    @Column(name = "fecha_lanzamiento")
+    private Date fechaLanzamiento;
     @ManyToMany
     @JoinTable(
             name = "disco_cancion",
@@ -29,13 +31,13 @@ public class Disco {
     private Set<Cancion> cancion;
     @ManyToOne
     @JoinColumn(name="artista_id")
+    @JsonManagedReference
     private Artista artista;
 
-    public Disco(String p_nombre, Set<Genero> p_genero, Date p_fecha_lanzamiento, Set<Cancion> p_cancion){
+    public Disco(String p_nombre, Set<Genero> p_genero, Date p_fecha_lanzamiento){
         this.nombre=p_nombre;
         this.genero=p_genero;
-        this.fecha_lanzamiento=p_fecha_lanzamiento;
-        this.cancion=p_cancion;
+        this.fechaLanzamiento=p_fecha_lanzamiento;
     }
 
     public Disco(){}
@@ -62,10 +64,10 @@ public class Disco {
         this.genero=p_genero;
     }
     public Date getFechaLanzamiento(){
-        return fecha_lanzamiento;
+        return fechaLanzamiento;
     }
     public void setFechaLanzamiento(Date p_fecha_lanzamiento){
-        this.fecha_lanzamiento=p_fecha_lanzamiento;
+        this.fechaLanzamiento=p_fecha_lanzamiento;
     }
     public Set<Cancion> getCancion(){
         return cancion;
@@ -73,5 +75,12 @@ public class Disco {
 
     public void setCancion(Set<Cancion> p_cancion){
         this.cancion=p_cancion;
+    }
+
+    public Artista getArtista(){
+        return artista;
+    }
+    public void setArtista(Artista p_artista){
+        this.artista=p_artista;
     }
 }

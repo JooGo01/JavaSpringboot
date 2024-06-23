@@ -1,5 +1,7 @@
 package com.example.demo.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 
@@ -35,6 +37,8 @@ public class Artista {
     private Set<Instrumento> instrumento = new HashSet<>();
     private String biografia;
     @OneToMany(mappedBy = "artista")
+    @JsonBackReference
+    @JsonIgnore
     private Set<Disco> disco;
 
     public Artista(String p_nombre, String p_pais, Date p_fecha_nacimiento, Date p_fecha_fallecimiento, String p_biografia, Set<Genero> p_genero){

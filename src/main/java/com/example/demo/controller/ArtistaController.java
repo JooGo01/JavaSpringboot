@@ -25,8 +25,6 @@ public class ArtistaController {
         for (Genero gen : artistaDTO.getGenero()) {
             if (Genero.existe(gen.toString())) {
                 genero.add(gen);
-            } else {
-                genero.add(Genero.Clásica);
             }
         }
         Set<Instrumento> instrumento = new HashSet<>();
